@@ -201,6 +201,383 @@ namespace Server.Mobiles
 
     public class BaseCreature : Mobile, IHonorTarget, IEngravable
     {
+	
+		#region CUSTOM [FS:ATS]
+		private int m_RoarAttack;
+		private int m_PetPoisonAttack;
+		private int m_FireBreathAttack;
+
+		private bool m_IsMating;
+
+		private int m_ABPoints;
+		private int m_Exp;
+		private int m_NextLevel = 100;
+		private int m_Level = 1;
+		private int m_MaxLevel;
+
+		private bool m_AllowMating;
+        private bool m_CanMate;
+
+		private bool m_Evolves;
+		private int m_Gen = 1;
+
+		private DateTime m_MatingDelay;
+
+		private int m_Form1;
+		private int m_Form2;
+		private int m_Form3;
+		private int m_Form4;
+		private int m_Form5;
+		private int m_Form6;
+		private int m_Form7;
+		private int m_Form8;
+		private int m_Form9;
+
+		private int m_Sound1;
+		private int m_Sound2;
+		private int m_Sound3;
+		private int m_Sound4;
+		private int m_Sound5;
+		private int m_Sound6;
+		private int m_Sound7;
+		private int m_Sound8;
+		private int m_Sound9;
+
+		private bool m_UsesForm1;
+		private bool m_UsesForm2;
+		private bool m_UsesForm3;
+		private bool m_UsesForm4;
+		private bool m_UsesForm5;
+		private bool m_UsesForm6;
+		private bool m_UsesForm7;
+		private bool m_UsesForm8;
+		private bool m_UsesForm9;
+
+		public bool m_F0;
+		public bool m_F1;
+		public bool m_F2;
+		public bool m_F3;
+		public bool m_F4;
+		public bool m_F5;
+		public bool m_F6;
+		public bool m_F7;
+		public bool m_F8;
+		public bool m_F9;
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public int RoarAttack
+		{
+			get{ return m_RoarAttack; }
+			set{ m_RoarAttack = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public int PetPoisonAttack
+		{
+			get{ return m_PetPoisonAttack; }
+			set{ m_PetPoisonAttack = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public int FireBreathAttack
+		{
+			get{ return m_FireBreathAttack; }
+			set{ m_FireBreathAttack = value; }
+		}
+
+		[CommandProperty( AccessLevel.Administrator )]
+		public DateTime MatingDelay
+		{
+			get{ return m_MatingDelay; }
+			set{ m_MatingDelay = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public int Generation
+		{
+			get{ return m_Gen; }
+			set{ m_Gen = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public int AbilityPoints
+		{
+			get{ return m_ABPoints; }
+			set{ m_ABPoints = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public int Exp
+		{
+			get{ return m_Exp; }
+			set{ m_Exp = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public int NextLevel
+		{
+			get{ return m_NextLevel; }
+			set{ m_NextLevel = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public int Level
+		{
+			get{ return m_Level; }
+			set{ m_Level = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public int MaxLevel
+		{
+			get{ return m_MaxLevel; }
+			set{ m_MaxLevel = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public bool Evolves
+		{
+			get{ return m_Evolves; }
+			set{ m_Evolves = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public bool AllowMating
+		{
+			get{ return m_AllowMating; }
+			set{ m_AllowMating = value; }
+		}
+
+		[CommandProperty( AccessLevel.GameMaster )]
+		public bool CanMate
+		{
+			get{ return m_CanMate; }
+			set{ m_CanMate = value; }
+		}
+
+		public int Form1
+		{
+			get{ return m_Form1; }
+			set{ m_Form1 = value; }
+		}
+
+		public int Form2
+		{
+			get{ return m_Form2; }
+			set{ m_Form2 = value; }
+		}
+
+		public int Form3
+		{
+			get{ return m_Form3; }
+			set{ m_Form3 = value; }
+		}
+
+		public int Form4
+		{
+			get{ return m_Form4; }
+			set{ m_Form4 = value; }
+		}
+
+		public int Form5
+		{
+			get{ return m_Form5; }
+			set{ m_Form5 = value; }
+		}
+
+		public int Form6
+		{
+			get{ return m_Form6; }
+			set{ m_Form6 = value; }
+		}
+
+		public int Form7
+		{
+			get{ return m_Form7; }
+			set{ m_Form7 = value; }
+		}
+
+		public int Form8
+		{
+			get{ return m_Form8; }
+			set{ m_Form8 = value; }
+		}
+
+		public int Form9
+		{
+			get{ return m_Form9; }
+			set{ m_Form9 = value; }
+		}
+
+		public int Sound1
+		{
+			get{ return m_Sound1; }
+			set{ m_Sound1 = value; }
+		}
+
+		public int Sound2
+		{
+			get{ return m_Sound2; }
+			set{ m_Sound2 = value; }
+		}
+
+		public int Sound3
+		{
+			get{ return m_Sound3; }
+			set{ m_Sound3 = value; }
+		}
+
+		public int Sound4
+		{
+			get{ return m_Sound4; }
+			set{ m_Sound4 = value; }
+		}
+
+		public int Sound5
+		{
+			get{ return m_Sound5; }
+			set{ m_Sound5 = value; }
+		}
+
+		public int Sound6
+		{
+			get{ return m_Sound6; }
+			set{ m_Sound6 = value; }
+		}
+
+		public int Sound7
+		{
+			get{ return m_Sound7; }
+			set{ m_Sound7 = value; }
+		}
+
+		public int Sound8
+		{
+			get{ return m_Sound8; }
+			set{ m_Sound8 = value; }
+		}
+
+		public int Sound9
+		{
+			get{ return m_Sound9; }
+			set{ m_Sound9 = value; }
+		}
+
+		public bool UsesForm1
+		{
+			get{ return m_UsesForm1; }
+			set{ m_UsesForm1 = value; }
+		}
+
+		public bool UsesForm2
+		{
+			get{ return m_UsesForm2; }
+			set{ m_UsesForm2 = value; }
+		}
+
+		public bool UsesForm3
+		{
+			get{ return m_UsesForm3; }
+			set{ m_UsesForm3 = value; }
+		}
+
+		public bool UsesForm4
+		{
+			get{ return m_UsesForm4; }
+			set{ m_UsesForm4 = value; }
+		}
+
+		public bool UsesForm5
+		{
+			get{ return m_UsesForm5; }
+			set{ m_UsesForm5 = value; }
+		}
+
+		public bool UsesForm6
+		{
+			get{ return m_UsesForm6; }
+			set{ m_UsesForm6 = value; }
+		}
+
+		public bool UsesForm7
+		{
+			get{ return m_UsesForm7; }
+			set{ m_UsesForm7 = value; }
+		}
+
+		public bool UsesForm8
+		{
+			get{ return m_UsesForm8; }
+			set{ m_UsesForm8 = value; }
+		}
+
+		public bool UsesForm9
+		{
+			get{ return m_UsesForm9; }
+			set{ m_UsesForm9 = value; }
+		}
+
+		public bool F0
+		{
+			get{ return m_F0; }
+			set{ m_F0 = value; }
+		}
+
+		public bool F1
+		{
+			get{ return m_F1; }
+			set{ m_F1 = value; }
+		}
+
+		public bool F2
+		{
+			get{ return m_F2; }
+			set{ m_F2 = value; }
+		}
+
+		public bool F3
+		{
+			get{ return m_F3; }
+			set{ m_F3 = value; }
+		}
+
+		public bool F4
+		{
+			get{ return m_F4; }
+			set{ m_F4 = value; }
+		}
+
+		public bool F5
+		{
+			get{ return m_F5; }
+			set{ m_F5 = value; }
+		}
+
+		public bool F6
+		{
+			get{ return m_F6; }
+			set{ m_F6 = value; }
+		}
+
+		public bool F7
+		{
+			get{ return m_F7; }
+			set{ m_F7 = value; }
+		}
+
+		public bool F8
+		{
+			get{ return m_F8; }
+			set{ m_F8 = value; }
+		}
+
+		public bool F9
+		{
+			get{ return m_F9; }
+			set{ m_F9 = value; }
+		}
+        #endregion
+		
         public const int MaxLoyalty = 100;
 
         private bool _LockDirection;
